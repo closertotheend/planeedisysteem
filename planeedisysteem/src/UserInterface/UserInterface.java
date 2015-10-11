@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Planetary.PSController;
+import Planetary.SpaceShip;
 
 
 /**
@@ -35,6 +36,7 @@ public class UserInterface extends JFrame {
 	private static final String LBL_START_AUTO_TICK = "Start auto tick";
 	
 	private static final long serialVersionUID = 1L;
+	public static final String LAUNCH = "Launch";
 
 	private final PSController controller = new PSController(); 
 	
@@ -60,14 +62,11 @@ public class UserInterface extends JFrame {
 	private JPanel timeBtnPanel = new JPanel();
 	private JButton btnTick = new JButton(LBL_SINGLE_TICK);
 	private JButton btnAuto = new JButton(LBL_START_AUTO_TICK);
-	
+	private JButton btnLaunch = new JButton(LAUNCH);
 
-
-
-	
 	public UserInterface() {
 			
-		// 1. loome uue planeedisüsteemi
+		// 1. loome uue planeedisï¿½steemi
 		this.controller.makeSolarSystem();	
 		
 		this.planetWidth = 3;
@@ -79,6 +78,7 @@ public class UserInterface extends JFrame {
 		
 		this.timeBtnPanel.add(btnTick);
 		this.timeBtnPanel.add(btnAuto);
+		this.timeBtnPanel.add(btnLaunch);
 		this.timeBtnPanel.setBorder(BorderFactory.createTitledBorder(LBL_TITLE_INFO_PANEL));
 								
 		this.planetsPanel.setBackground(Color.black);				
@@ -92,6 +92,12 @@ public class UserInterface extends JFrame {
 		this.btnAuto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				handleBtnClickAutoTick();				
+			}
+		});
+
+		this.btnLaunch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				handleBtnClickLaunch();
 			}
 		});
 		
@@ -155,8 +161,16 @@ public class UserInterface extends JFrame {
 			this.btnAuto.setText(LBL_STOP_AUTO_TICK);
 		}				
 	}
-		
-	
+
+	public void handleBtnClickLaunch() {
+		launch();
+	}
+
+	public void launch() {
+		SpaceShip ship = controller.launch(7, 0.5, 0.5);
+		controller.getPlanetarySystem().append(ship);
+	}
+
 	public void drawPlanets(final Graphics g) {			
 		for (int i=0; i<controller.getPlanetarySystem().size(); i++ ){
 			drawPlanet(g, i);
@@ -178,11 +192,11 @@ public class UserInterface extends JFrame {
  
 	/**
 	 * Simulatsiooni koordinaatide konverteerimine kasutajaliidese jaoks sobivale kujule.
-        Sõltub atribuutidest: 
+        Sï¿½ltub atribuutidest: 
         cx, cy - kuva keskpunkt
         zoom - suurendus
         planet_width - planeedi suurus
-        Väljastab ovaali joonistamiseks vajalikud neli koordinaati
+        Vï¿½ljastab ovaali joonistamiseks vajalikud neli koordinaati
 	 */
 	public double[] convCoords(double x, double y) {
 		
