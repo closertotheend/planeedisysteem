@@ -167,8 +167,7 @@ public class UserInterface extends JFrame {
 	}
 
 	public void launch() {
-		SpaceShip ship = controller.launch(7, 0.5, 0.5);
-		controller.getPlanetarySystem().append(ship);
+		controller.launch(7, 0.5, 0.5);
 	}
 
 	public void drawPlanets(final Graphics g) {			
