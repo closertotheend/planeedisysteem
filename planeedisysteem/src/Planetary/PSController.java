@@ -44,7 +44,7 @@ public class PSController {
 
 	public void launch(int planetIndex, double dx, double dy){
 		PointSimulationElement element = planetarySystem.getElement(planetIndex);
-		SpaceShip spaceShip = new SpaceShip(element.getx(), element.gety(), dx, dy);
+		SpaceShip spaceShip = new SpaceShip(element, dx, dy);
 		planetarySystem.append(spaceShip);
 	}
 

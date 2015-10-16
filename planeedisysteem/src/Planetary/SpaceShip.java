@@ -1,6 +1,8 @@
 package Planetary;
 
 
+import Geometry.Point;
+
 public class SpaceShip extends PointSimulationElement {
 
     private double dx;
@@ -11,6 +13,14 @@ public class SpaceShip extends PointSimulationElement {
         this.dx = dx;
         this.dy = dy;
     }
+
+    public SpaceShip(Point point, double dx, double dy) {
+        super(point.getx(), point.gety());
+        this.dx = dx;
+        this.dy = dy;
+    }
+
+
 
     public void tick() {
         translate(dx, dy);
